@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using PortalCampanas.Models;
 using PortalCampanas.Services;
 
 namespace PortalCampanas.Controllers;
@@ -10,6 +11,23 @@ public class CampanasController : Controller
     public CampanasController(CampanaService service)
     {
         _service = service;
+    }
+
+    // Accion Resumen: calcula indicadores en memoria
+    public IActionResult Resumen()
+    {
+        var campanas = _service.ObtenerTodas();
+        var resumen = new ResumenViewModel
+        {
+            TotalCampanas = campanas.Count,
+            CampanasVigentes = campanas.Count(c => c.Estado == "Vigente"),
+            CampanasProximas = campanas.Count(c => c.Estado == "Próxima"),
+            CampanasFinalizadas = campanas.Count(c => c.Estado == "Finalizada"),
+            PromedioDescuento = campanas.Average(c => c.DescuentoPct),
+            CantidadPorCanal = campanas.GroupBy(c => c.Canal)
+                .ToDictionary(g => g.Key, g => g.Count())
+        };
+        return View(resumen);
     }
 
     public IActionResult Index(string? categoria, string? estado)
