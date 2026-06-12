@@ -1,0 +1,62 @@
+@model List<PortalCampanas.Models.Campana>
+@{
+    ViewData["Title"] = "Campañas Comerciales";
+}
+
+<div class="container py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="h2 text-primary fw-bold">
+            <i class="bi bi-megaphone-fill me-2"></i>Campañas Comerciales
+        </h1>
+        <span class="badge bg-secondary fs-6">@Model.Count campañas</span>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-hover table-bordered align-middle">
+            <thead class="table-dark">
+                <tr>
+                    <th>Nombre</th>
+                    <th>Categoría</th>
+                    <th>Estado</th>
+                    <th>Canal</th>
+                    <th>Descuento</th>
+                    <th>Fecha Inicio</th>
+                    <th>Fecha Fin</th>
+                    <th class="text-center">Acción</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var c in Model)
+                {
+                    <tr>
+                        <td class="fw-semibold">@c.Nombre</td>
+                        <td>
+                            <span class="badge bg-info text-dark">@c.Categoria</span>
+                        </td>
+                        <td>
+                            @{
+                                var badgeClass = c.Estado switch
+                                {
+                                    "Vigente" => "bg-success",
+                                    "Próxima" => "bg-warning text-dark",
+                                    "Finalizada" => "bg-secondary",
+                                    _ => "bg-light text-dark"
+                                };
+                            }
+                            <span class="badge @badgeClass">@c.Estado</span>
+                        </td>
+                        <td>@c.Canal</td>
+                        <td class="text-center fw-bold text-success">@c.DescuentoPct%</td>
+                        <td>@c.FechaInicio.ToString("dd/MM/yyyy")</td>
+                        <td>@c.FechaFin.ToString("dd/MM/yyyy")</td>
+                        <td class="text-center">
+                            <a asp-action="Detalle" asp-route-id="@c.Id" class="btn btn-sm btn-primary">
+                                Ver detalle
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
