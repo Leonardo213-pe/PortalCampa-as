@@ -1,0 +1,92 @@
+@model PortalCampanas.Models.ResumenViewModel
+@{
+    ViewData["Title"] = "Resumen de Campañas";
+}
+
+<div class="container py-4">
+    <h1 class="h2 text-primary fw-bold mb-4">
+        <i class="bi bi-bar-chart-fill me-2"></i>Resumen de Campañas
+    </h1>
+
+    <div class="row g-4 mb-4">
+        <div class="col-md-3">
+            <div class="card text-center border-0 shadow-sm h-100">
+                <div class="card-body py-4">
+                    <div class="display-4 fw-bold text-primary">@Model.TotalCampanas</div>
+                    <div class="text-muted mt-2">Total de Campañas</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-center border-0 shadow-sm h-100 bg-success text-white">
+                <div class="card-body py-4">
+                    <div class="display-4 fw-bold">@Model.CampanasVigentes</div>
+                    <div class="mt-2 opacity-75">Vigentes</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-center border-0 shadow-sm h-100 bg-warning">
+                <div class="card-body py-4">
+                    <div class="display-4 fw-bold">@Model.CampanasProximas</div>
+                    <div class="mt-2 text-dark opacity-75">Próximas</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-center border-0 shadow-sm h-100 bg-secondary text-white">
+                <div class="card-body py-4">
+                    <div class="display-4 fw-bold">@Model.CampanasFinalizadas</div>
+                    <div class="mt-2 opacity-75">Finalizadas</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-4">
+        <div class="col-md-6">
+            <div class="card shadow-sm h-100">
+                <div class="card-header bg-light fw-semibold">
+                    Promedio de Descuento
+                </div>
+                <div class="card-body d-flex align-items-center justify-content-center">
+                    <div class="text-center">
+                        <div class="display-3 fw-bold text-success">@Model.PromedioDescuento.ToString("F1")%</div>
+                        <div class="text-muted">promedio general</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card shadow-sm h-100">
+                <div class="card-header bg-light fw-semibold">
+                    Campañas por Canal
+                </div>
+                <div class="card-body">
+                    @foreach (var canal in Model.CantidadPorCanal)
+                    {
+                        var maxVal = Model.CantidadPorCanal.Values.Max();
+                        var pct = maxVal > 0 ? (int)((canal.Value * 100.0) / maxVal) : 0;
+                        <div class="mb-3">
+                            <div class="d-flex justify-content-between mb-1">
+                                <span class="fw-semibold">@canal.Key</span>
+                                <span class="badge bg-primary">@canal.Value</span>
+                            </div>
+                            <div class="progress" style="height: 20px;">
+                                <div class="progress-bar" role="progressbar" style="width: @pct%">
+                                    @canal.Value campañas
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-4">
+        <a asp-action="Index" class="btn btn-outline-primary">
+            <i class="bi bi-arrow-left me-1"></i>Ver listado completo
+        </a>
+    </div>
+</div>
