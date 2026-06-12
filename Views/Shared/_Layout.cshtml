@@ -1,50 +1,70 @@
 <!DOCTYPE html>
-<html lang="es-PE">
+<html lang="es">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Campañas Retail</title>
+    <title>@ViewData["Title"] - Portal de Campañas</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <style>
+        body { background-color: #f8f9fa; }
+        .navbar-brand { font-weight: 700; font-size: 1.3rem; }
+        .footer { background-color: #212529; color: #adb5bd; padding: 1.5rem 0; margin-top: 3rem; }
+        .footer a { color: #6c757d; }
+        .nav-link.active { font-weight: 600; }
+    </style>
 </head>
 <body class="bg-light">
     <header>
-        <nav class="navbar navbar-expand-sm navbar-light bg-primary mb-3">
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark shadow-sm">
             <div class="container">
-                <a class="navbar-brand text-white fw-bold" asp-controller="Home" asp-action="Index">
-                    Retail Campañas
+                <a class="navbar-brand" asp-controller="Home" asp-action="Index">
+                    <i class="bi bi-shop me-2"></i>Portal de Campañas
                 </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse"
-                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain"
+                        aria-controls="navbarMain" aria-expanded="false" aria-label="Menú">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-white" asp-controller="Home" asp-action="Index">Inicio</a>
+                <div class="collapse navbar-collapse" id="navbarMain">
+                    <ul class="navbar-nav ms-auto">
+https://github.com/Leonardo213-pe/PortalCampa-as/pull/7/conflict?name=Views%252FShared%252F_Layout.cshtml&ancestor_oid=ad47fcbea5dea05966cadfb611008830aac1836e&base_oid=7a3b1e50e0278a7db82ff4d2e8435840d43801a2&head_oid=db1bc9561141f7f7fba62e907629710b4e694896                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Home" asp-action="Index">
+                                <i class="bi bi-house me-1"></i>Inicio
+                            </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white" asp-controller="Campanas" asp-action="Index">Campañas</a>
+                            <a class="nav-link" asp-controller="Campanas" asp-action="Index">
+                                <i class="bi bi-megaphone me-1"></i>Campañas
+                            </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white" asp-controller="Campanas" asp-action="Resumen">Resumen</a>
+                            <a class="nav-link" asp-controller="Campanas" asp-action="Resumen">
+                                <i class="bi bi-bar-chart me-1"></i>Resumen
+                            </a>
                         </li>
                     </ul>
                 </div>
             </div>
         </nav>
     </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
 
-    <footer class="border-top footer text-muted bg-white mt-4 py-2">
-        <div class="container">
-            &copy; 2026 - Retail Campañas - Departamento de Marketing
+    <main class="pb-4">
+        @RenderBody()
+    </main>
+
+    <footer class="footer">
+        <div class="container d-flex justify-content-between align-items-center">
+            <span>
+                <i class="bi bi-shop me-1"></i>
+                &copy; 2026 Portal de Campañas &mdash; Equipo de Marketing
+            </span>
+            <span>
+                Desarrollado con <i class="bi bi-heart-fill text-danger"></i> en .NET 8 MVC
+            </span>
         </div>
     </footer>
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
