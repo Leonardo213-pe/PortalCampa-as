@@ -12,9 +12,21 @@ public class CampanasController : Controller
         _service = service;
     }
 
-    public IActionResult Index()
+    public IActionResult Index(string? categoria, string? estado)
     {
         var campanas = _service.ObtenerTodas();
+
+        if (!string.IsNullOrEmpty(categoria))
+            campanas = campanas.Where(c => c.Categoria == categoria).ToList();
+
+        if (!string.IsNullOrEmpty(estado))
+            campanas = campanas.Where(c => c.Estado == estado).ToList();
+
+        ViewBag.Categorias = _service.ObtenerCategorias();
+        ViewBag.Estados = _service.ObtenerEstados();
+        ViewBag.CategoriaSeleccionada = categoria;
+        ViewBag.EstadoSeleccionado = estado;
+
         return View(campanas);
     }
 

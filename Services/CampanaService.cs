@@ -131,4 +131,10 @@ public class CampanaService
     public List<Campana> ObtenerTodas() => _campanas;
 
     public Campana? ObtenerPorId(int id) => _campanas.FirstOrDefault(c => c.Id == id);
+
+    public List<string> ObtenerCategorias() =>
+        _campanas.Select(c => c.Categoria).Distinct().OrderBy(c => c).ToList();
+
+    public List<string> ObtenerEstados() =>
+        _campanas.Select(c => c.Estado).Distinct().OrderBy(c => c).ToList();
 }
