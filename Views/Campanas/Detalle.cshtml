@@ -1,0 +1,80 @@
+@model PortalCampanas.Models.Campana
+@{
+    ViewData["Title"] = "Detalle de Campaña";
+    var badgeClass = Model.Estado switch
+    {
+        "Vigente" => "bg-success",
+        "Próxima" => "bg-warning text-dark",
+        "Finalizada" => "bg-secondary",
+        _ => "bg-light text-dark"
+    };
+}
+
+<div class="container py-4">
+    <nav aria-label="breadcrumb" class="mb-3">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a asp-controller="Campanas" asp-action="Index">Campañas</a></li>
+            <li class="breadcrumb-item active">@Model.Nombre</li>
+        </ol>
+    </nav>
+
+    <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+            <h2 class="h4 mb-0">
+                <i class="bi bi-megaphone me-2"></i>@Model.Nombre
+            </h2>
+            <span class="badge @badgeClass fs-6">@Model.Estado</span>
+        </div>
+        <div class="card-body">
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <h5 class="text-muted mb-3">Información General</h5>
+                    <table class="table table-borderless">
+                        <tbody>
+                            <tr>
+                                <th class="text-muted" style="width: 40%">Categoría</th>
+                                <td><span class="badge bg-info text-dark">@Model.Categoria</span></td>
+                            </tr>
+                            <tr>
+                                <th class="text-muted">Canal</th>
+                                <td>@Model.Canal</td>
+                            </tr>
+                            <tr>
+                                <th class="text-muted">Descuento</th>
+                                <td class="fw-bold text-success fs-5">@Model.DescuentoPct%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-md-6">
+                    <h5 class="text-muted mb-3">Vigencia</h5>
+                    <table class="table table-borderless">
+                        <tbody>
+                            <tr>
+                                <th class="text-muted" style="width: 40%">Fecha Inicio</th>
+                                <td>@Model.FechaInicio.ToString("dd/MM/yyyy")</td>
+                            </tr>
+                            <tr>
+                                <th class="text-muted">Fecha Fin</th>
+                                <td>@Model.FechaFin.ToString("dd/MM/yyyy")</td>
+                            </tr>
+                            <tr>
+                                <th class="text-muted">Duración</th>
+                                <td>@((Model.FechaFin - Model.FechaInicio).Days) días</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-12">
+                    <h5 class="text-muted mb-2">Descripción</h5>
+                    <p class="lead">@Model.Descripcion</p>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer d-flex justify-content-start">
+            <a asp-controller="Campanas" asp-action="Index" class="btn btn-outline-secondary">
+                <i class="bi bi-arrow-left me-1"></i>Volver al listado
+            </a>
+        </div>
+    </div>
+</div>
