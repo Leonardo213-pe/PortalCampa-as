@@ -1,22 +1,275 @@
 html {
-  font-size: 14px;
-}
-
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
-
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
-
-html {
-  position: relative;
-  min-height: 100%;
+  font-size: 16px;
 }
 
 body {
-  margin-bottom: 60px;
+  background-color: #f4f5f7;
+  color: #1a1a2e;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+}
+
+/* ── Navbar ── */
+.navbar-portal {
+  background: #ffffff;
+  border-bottom: 1px solid #e8e8e8;
+  padding: 0.75rem 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 1px 4px rgba(0,0,0,.06);
+}
+
+.navbar-brand-portal {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 700;
+  font-size: 1.2rem;
+  color: #1a1a2e;
+  text-decoration: none;
+}
+
+.brand-icon {
+  background: #e8380d;
+  color: #fff;
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+}
+
+.nav-portal {
+  display: flex;
+  gap: 0.25rem;
+  align-items: center;
+}
+
+.nav-portal .nav-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.45rem 1rem;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-decoration: none;
+  color: #555;
+  border: none;
+  background: transparent;
+  transition: background .15s, color .15s;
+}
+
+.nav-portal .nav-btn:hover {
+  background: #f4f5f7;
+  color: #1a1a2e;
+}
+
+.nav-portal .nav-btn.active {
+  background: #e8380d;
+  color: #fff;
+}
+
+/* ── Campaign Cards ── */
+.campaign-card {
+  background: #fff;
+  border-radius: 14px;
+  border: 1px solid #ebebeb;
+  padding: 1.25rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,.05);
+  transition: box-shadow .2s, transform .2s;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.campaign-card:hover {
+  box-shadow: 0 6px 20px rgba(0,0,0,.10);
+  transform: translateY(-2px);
+}
+
+.campaign-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.campaign-name {
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: #1a1a2e;
+  line-height: 1.3;
+}
+
+/* ── Status Badges ── */
+.badge-estado {
+  display: inline-block;
+  padding: 0.25rem 0.7rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.badge-vigente   { background: #d4f5e2; color: #1a7a45; }
+.badge-proxima   { background: #dbeafe; color: #1d4ed8; }
+.badge-finalizada{ background: #f0f0f0; color: #6b7280; }
+
+/* ── Card Meta info ── */
+.card-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+  font-size: 0.82rem;
+  color: #6b7280;
+}
+
+.card-meta span {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+/* ── Channel chip ── */
+.chip-canal {
+  display: inline-block;
+  padding: 0.2rem 0.7rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  background: #f0f0f0;
+  color: #444;
+  border: 1px solid #ddd;
+}
+
+/* ── Ver detalle button ── */
+.btn-ver-detalle {
+  display: block;
+  width: 100%;
+  text-align: center;
+  padding: 0.5rem;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  background: #fafafa;
+  color: #444;
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: background .15s, border-color .15s;
+  margin-top: auto;
+}
+
+.btn-ver-detalle:hover {
+  background: #f0f0f0;
+  border-color: #bbb;
+  color: #1a1a2e;
+}
+
+/* ── Detail page ── */
+.detail-card {
+  background: #fff;
+  border-radius: 16px;
+  border: 1px solid #ebebeb;
+  box-shadow: 0 2px 12px rgba(0,0,0,.06);
+  padding: 2rem;
+}
+
+.detail-label {
+  font-size: 0.75rem;
+  color: #9ca3af;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  margin-bottom: 0.2rem;
+}
+
+.detail-value {
+  font-size: 0.95rem;
+  color: #1a1a2e;
+  font-weight: 500;
+}
+
+.detail-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.detail-divider {
+  border: none;
+  border-top: 1px solid #f0f0f0;
+  margin: 1.25rem 0;
+}
+
+/* ── Resumen cards ── */
+.stat-card {
+  background: #fff;
+  border-radius: 14px;
+  border: 1px solid #ebebeb;
+  box-shadow: 0 2px 8px rgba(0,0,0,.05);
+  padding: 1.5rem;
+  text-align: center;
+}
+
+.stat-number { font-size: 2.5rem; font-weight: 700; line-height: 1; }
+.stat-label  { font-size: 0.82rem; color: #6b7280; margin-top: 0.4rem; }
+
+/* ── Filtro panel ── */
+.filtro-panel {
+  background: #fff;
+  border-radius: 14px;
+  border: 1px solid #ebebeb;
+  box-shadow: 0 2px 8px rgba(0,0,0,.05);
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.btn-filtrar {
+  background: #e8380d;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 0.5rem 1.25rem;
+  font-weight: 600;
+  font-size: 0.875rem;
+}
+
+.btn-filtrar:hover { background: #c02d09; color: #fff; }
+
+.btn-limpiar {
+  background: transparent;
+  color: #6b7280;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 0.5rem 1.25rem;
+  font-size: 0.875rem;
+}
+
+.btn-limpiar:hover { background: #f4f5f7; }
+
+/* ── Back link ── */
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  color: #6b7280;
+  font-size: 0.875rem;
+  text-decoration: none;
+  margin-bottom: 1.25rem;
+}
+
+.back-link:hover { color: #1a1a2e; }
+
+/* ── Footer ── */
+.footer-portal {
+  background: #fff;
+  border-top: 1px solid #e8e8e8;
+  padding: 1rem 0;
+  margin-top: 3rem;
+  font-size: 0.8rem;
+  color: #9ca3af;
+  text-align: center;
 }

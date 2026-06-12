@@ -4,89 +4,70 @@
 }
 
 <div class="container py-4">
-    <h1 class="h2 text-primary fw-bold mb-4">
-        <i class="bi bi-bar-chart-fill me-2"></i>Resumen de Campañas
-    </h1>
+    <h1 class="h3 fw-bold mb-4">Resumen de Campañas</h1>
 
-    <div class="row g-4 mb-4">
-        <div class="col-md-3">
-            <div class="card text-center border-0 shadow-sm h-100">
-                <div class="card-body py-4">
-                    <div class="display-4 fw-bold text-primary">@Model.TotalCampanas</div>
-                    <div class="text-muted mt-2">Total de Campañas</div>
-                </div>
+    <div class="row g-3 mb-4">
+        <div class="col-6 col-md-3">
+            <div class="stat-card">
+                <div class="stat-number" style="color:#1a1a2e;">@Model.TotalCampanas</div>
+                <div class="stat-label">Total campañas</div>
             </div>
         </div>
-        <div class="col-md-3">
-            <div class="card text-center border-0 shadow-sm h-100 bg-success text-white">
-                <div class="card-body py-4">
-                    <div class="display-4 fw-bold">@Model.CampanasVigentes</div>
-                    <div class="mt-2 opacity-75">Vigentes</div>
-                </div>
+        <div class="col-6 col-md-3">
+            <div class="stat-card">
+                <div class="stat-number" style="color:#1a7a45;">@Model.CampanasVigentes</div>
+                <div class="stat-label">Vigentes</div>
             </div>
         </div>
-        <div class="col-md-3">
-            <div class="card text-center border-0 shadow-sm h-100 bg-warning">
-                <div class="card-body py-4">
-                    <div class="display-4 fw-bold">@Model.CampanasProximas</div>
-                    <div class="mt-2 text-dark opacity-75">Próximas</div>
-                </div>
+        <div class="col-6 col-md-3">
+            <div class="stat-card">
+                <div class="stat-number" style="color:#1d4ed8;">@Model.CampanasProximas</div>
+                <div class="stat-label">Próximas</div>
             </div>
         </div>
-        <div class="col-md-3">
-            <div class="card text-center border-0 shadow-sm h-100 bg-secondary text-white">
-                <div class="card-body py-4">
-                    <div class="display-4 fw-bold">@Model.CampanasFinalizadas</div>
-                    <div class="mt-2 opacity-75">Finalizadas</div>
-                </div>
+        <div class="col-6 col-md-3">
+            <div class="stat-card">
+                <div class="stat-number" style="color:#6b7280;">@Model.CampanasFinalizadas</div>
+                <div class="stat-label">Finalizadas</div>
             </div>
         </div>
     </div>
 
-    <div class="row g-4">
-        <div class="col-md-6">
-            <div class="card shadow-sm h-100">
-                <div class="card-header bg-light fw-semibold">
-                    Promedio de Descuento
-                </div>
-                <div class="card-body d-flex align-items-center justify-content-center">
-                    <div class="text-center">
-                        <div class="display-3 fw-bold text-success">@Model.PromedioDescuento.ToString("F1")%</div>
-                        <div class="text-muted">promedio general</div>
-                    </div>
-                </div>
+    <div class="row g-3">
+        <div class="col-md-4">
+            <div class="stat-card">
+                <div class="detail-label mb-2">Promedio de descuento</div>
+                <div class="stat-number" style="color:#e8380d;">@Model.PromedioDescuento.ToString("F1")%</div>
+                <div class="stat-label">sobre todas las campañas</div>
             </div>
         </div>
-        <div class="col-md-6">
-            <div class="card shadow-sm h-100">
-                <div class="card-header bg-light fw-semibold">
-                    Campañas por Canal
-                </div>
-                <div class="card-body">
-                    @foreach (var canal in Model.CantidadPorCanal)
-                    {
-                        var maxVal = Model.CantidadPorCanal.Values.Max();
-                        var pct = maxVal > 0 ? (int)((canal.Value * 100.0) / maxVal) : 0;
-                        <div class="mb-3">
-                            <div class="d-flex justify-content-between mb-1">
-                                <span class="fw-semibold">@canal.Key</span>
-                                <span class="badge bg-primary">@canal.Value</span>
-                            </div>
-                            <div class="progress" style="height: 20px;">
-                                <div class="progress-bar" role="progressbar" style="width: @pct%">
-                                    @canal.Value campañas
-                                </div>
-                            </div>
+        <div class="col-md-8">
+            <div class="detail-card">
+                <div class="detail-label mb-3">Campañas por canal</div>
+                @{
+                    var maxVal = Model.CantidadPorCanal.Values.DefaultIfEmpty(1).Max();
+                }
+                @foreach (var canal in Model.CantidadPorCanal.OrderByDescending(x => x.Value))
+                {
+                    var pct = maxVal > 0 ? (int)((canal.Value * 100.0) / maxVal) : 0;
+                    <div class="mb-3">
+                        <div class="d-flex justify-content-between mb-1" style="font-size:.875rem;">
+                            <span class="fw-semibold">@canal.Key</span>
+                            <span style="color:#6b7280;">@canal.Value campaña(s)</span>
                         </div>
-                    }
-                </div>
+                        <div class="progress" style="height:10px;border-radius:8px;">
+                            <div class="progress-bar" role="progressbar"
+                                 style="width:@pct%;background:#e8380d;border-radius:8px;"></div>
+                        </div>
+                    </div>
+                }
             </div>
         </div>
     </div>
 
     <div class="mt-4">
-        <a asp-action="Index" class="btn btn-outline-primary">
-            <i class="bi bi-arrow-left me-1"></i>Ver listado completo
+        <a asp-action="Index" class="back-link">
+            <i class="bi bi-arrow-left"></i> Ver listado completo
         </a>
     </div>
 </div>

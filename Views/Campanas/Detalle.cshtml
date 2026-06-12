@@ -1,80 +1,74 @@
 @model PortalCampanas.Models.Campana
 @{
-    ViewData["Title"] = "Detalle de Campaña";
+    ViewData["Title"] = Model.Nombre;
     var badgeClass = Model.Estado switch
     {
-        "Vigente" => "bg-success",
-        "Próxima" => "bg-warning text-dark",
-        "Finalizada" => "bg-secondary",
-        _ => "bg-light text-dark"
+        "Vigente"    => "badge-vigente",
+        "Próxima"    => "badge-proxima",
+        "Finalizada" => "badge-finalizada",
+        _            => "badge-finalizada"
+    };
+    var catIcon = Model.Categoria switch
+    {
+        "Tecnología" => "bi-cpu",
+        "Hogar"      => "bi-house",
+        "Moda"       => "bi-bag",
+        "Electro"    => "bi-lightning-charge",
+        _            => "bi-tag"
     };
 }
 
-<div class="container py-4">
-    <nav aria-label="breadcrumb" class="mb-3">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a asp-controller="Campanas" asp-action="Index">Campañas</a></li>
-            <li class="breadcrumb-item active">@Model.Nombre</li>
-        </ol>
-    </nav>
+<div class="container py-4" style="max-width: 680px;">
+    <a asp-controller="Campanas" asp-action="Index" class="back-link">
+        <i class="bi bi-arrow-left"></i> Volver al listado
+    </a>
 
-    <div class="card shadow-sm">
-        <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
-            <h2 class="h4 mb-0">
-                <i class="bi bi-megaphone me-2"></i>@Model.Nombre
-            </h2>
-            <span class="badge @badgeClass fs-6">@Model.Estado</span>
+    <div class="detail-card">
+        <div class="d-flex justify-content-between align-items-start mb-3">
+            <h1 class="h3 fw-bold mb-0">@Model.Nombre</h1>
+            <span class="badge-estado @badgeClass">@Model.Estado</span>
         </div>
-        <div class="card-body">
-            <div class="row g-4">
-                <div class="col-md-6">
-                    <h5 class="text-muted mb-3">Información General</h5>
-                    <table class="table table-borderless">
-                        <tbody>
-                            <tr>
-                                <th class="text-muted" style="width: 40%">Categoría</th>
-                                <td><span class="badge bg-info text-dark">@Model.Categoria</span></td>
-                            </tr>
-                            <tr>
-                                <th class="text-muted">Canal</th>
-                                <td>@Model.Canal</td>
-                            </tr>
-                            <tr>
-                                <th class="text-muted">Descuento</th>
-                                <td class="fw-bold text-success fs-5">@Model.DescuentoPct%</td>
-                            </tr>
-                        </tbody>
-                    </table>
+
+        <hr class="detail-divider" />
+
+        <div class="row g-4">
+            <div class="col-6">
+                <div class="detail-field">
+                    <div class="detail-label"><i class="bi bi-tag me-1"></i>Categoría</div>
+                    <div class="detail-value"><i class="bi @catIcon me-1"></i>@Model.Categoria</div>
                 </div>
-                <div class="col-md-6">
-                    <h5 class="text-muted mb-3">Vigencia</h5>
-                    <table class="table table-borderless">
-                        <tbody>
-                            <tr>
-                                <th class="text-muted" style="width: 40%">Fecha Inicio</th>
-                                <td>@Model.FechaInicio.ToString("dd/MM/yyyy")</td>
-                            </tr>
-                            <tr>
-                                <th class="text-muted">Fecha Fin</th>
-                                <td>@Model.FechaFin.ToString("dd/MM/yyyy")</td>
-                            </tr>
-                            <tr>
-                                <th class="text-muted">Duración</th>
-                                <td>@((Model.FechaFin - Model.FechaInicio).Days) días</td>
-                            </tr>
-                        </tbody>
-                    </table>
+            </div>
+            <div class="col-6">
+                <div class="detail-field">
+                    <div class="detail-label"><i class="bi bi-shop me-1"></i>Canal</div>
+                    <div class="detail-value">@Model.Canal</div>
                 </div>
-                <div class="col-12">
-                    <h5 class="text-muted mb-2">Descripción</h5>
-                    <p class="lead">@Model.Descripcion</p>
+            </div>
+            <div class="col-6">
+                <div class="detail-field">
+                    <div class="detail-label"><i class="bi bi-calendar-check me-1"></i>Inicio</div>
+                    <div class="detail-value">@Model.FechaInicio.ToString("dd 'de' MMMM 'de' yyyy")</div>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="detail-field">
+                    <div class="detail-label"><i class="bi bi-calendar-x me-1"></i>Fin</div>
+                    <div class="detail-value">@Model.FechaFin.ToString("dd 'de' MMMM 'de' yyyy")</div>
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="detail-field">
+                    <div class="detail-label"><i class="bi bi-percent me-1"></i>Descuento</div>
+                    <div class="detail-value" style="font-size:1.4rem;color:#e8380d;font-weight:700;">@Model.DescuentoPct%</div>
                 </div>
             </div>
         </div>
-        <div class="card-footer d-flex justify-content-start">
-            <a asp-controller="Campanas" asp-action="Index" class="btn btn-outline-secondary">
-                <i class="bi bi-arrow-left me-1"></i>Volver al listado
-            </a>
+
+        <hr class="detail-divider" />
+
+        <div class="detail-field">
+            <div class="detail-label mb-2">Descripción</div>
+            <p style="color:#374151;line-height:1.6;margin:0;">@Model.Descripcion</p>
         </div>
     </div>
 </div>
